@@ -7,7 +7,6 @@ import (
 
 	"github.com/BATUCHKA/real-estate-back/database"
 	"github.com/BATUCHKA/real-estate-back/database/models"
-	"github.com/yourusername/real-estate-back/database/models"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )

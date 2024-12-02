@@ -59,27 +59,6 @@ func main() {
 	}
 }
 
-// func loadTranslations(filename string) {
-// 	file, err := os.Open(filename)
-// 	if err != nil {
-// 		fmt.Printf("Error opening file: %s\n", err)
-// 		return
-// 	}
-// 	defer file.Close()
-
-// 	decoder := json.NewDecoder(file)
-// 	var messages map[string]string
-// 	if err := decoder.Decode(&messages); err != nil {
-// 		fmt.Printf("Error decoding JSON: %s\n", err)
-// 		return
-// 	}
-
-// 	lang := filename[:2]
-// 	translationsMutex.Lock()
-// 	translations[lang] = messages
-// 	translationsMutex.Unlock()
-// }
-
 func router() http.Handler {
 	r := chi.NewRouter()
 	r.Use(baseRoute)
