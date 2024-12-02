@@ -14,7 +14,7 @@ import (
 	"path/filepath"
 
 	"github.com/disintegration/imaging"
-	"gitlab.com/steppelink/odin/odin-backend/database/models"
+	"github.com/BATUCHKA/real-estate-back/database/models"
 	"golang.org/x/image/webp"
 )
 

@@ -3,8 +3,8 @@ package util
 import (
 	"errors"
 	"fmt"
-	"gitlab.com/steppelink/odin/odin-backend/database"
-	"gitlab.com/steppelink/odin/odin-backend/database/models"
+	"github.com/BATUCHKA/real-estate-back/database"
+	"github.com/BATUCHKA/real-estate-back/database/models"
 	"os"
 )
 

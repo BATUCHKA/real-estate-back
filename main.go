@@ -9,6 +9,9 @@ import (
 	"os"
 	"sync"
 
+	"github.com/BATUCHKA/real-estate-back/services/admin"
+	"github.com/BATUCHKA/real-estate-back/services/api"
+	"github.com/BATUCHKA/real-estate-back/services/public"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"

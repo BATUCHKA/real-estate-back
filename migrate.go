@@ -5,8 +5,9 @@ import (
 	"log"
 	"reflect"
 
-	"gitlab.com/steppelink/odin/odin-backend/database"
-	"gitlab.com/steppelink/odin/odin-backend/database/models"
+	"github.com/BATUCHKA/real-estate-back/database"
+	"github.com/BATUCHKA/real-estate-back/database/models"
+	"github.com/yourusername/real-estate-back/database/models"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 )
@@ -16,6 +17,7 @@ func main() {
 	db.GormDB.Logger = logger.Default.LogMode(logger.Info) // Enable Logging
 
 	modelsList := []interface{}{
+		&models.AdminUser,
 	}
 
 	for _, model := range modelsList {
