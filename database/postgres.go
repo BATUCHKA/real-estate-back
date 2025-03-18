@@ -26,28 +26,26 @@ func init() {
 		log.Println(err)
 	}
 
-	dbHost := os.Getenv("DATABASE_HOST")
-	dbPort := os.Getenv("DATABASE_PORT")
-	dbUser := os.Getenv("DATABASE_USER")
-	dbPassword := os.Getenv("DATABASE_PASSWORD")
-	dbName := os.Getenv("DATABASE_NAME")
+	dbHost := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT")
+	dbUser := os.Getenv("DB_USER")
+	dbPassword := os.Getenv("DB_PASSWORD")
+	dbName := os.Getenv("DB_NAME")
 
+	
 	connectionString := fmt.Sprintf("postgresql://%s:%s@%s:%s/%s", dbUser, dbPassword, dbHost, dbPort, dbName)
-
-	// log.Println(connectionString)
+	log.Print(connectionString)
 
 	sqlDB, err := sql.Open("pgx", connectionString)
 
 	if err != nil {
 		log.Panic(err)
 	}
-	// SetMaxIdleConns sets the maximum number of connections in the idle connection pool.
+
 	sqlDB.SetMaxIdleConns(10)
 
-	// SetMaxOpenConns sets the maximum number of open connections to the database.
 	sqlDB.SetMaxOpenConns(100)
 
-	// SetConnMaxLifetime sets the maximum amount of time a connection may be reused.
 	sqlDB.SetConnMaxLifetime(time.Hour)
 
 	gormDB, err := gorm.Open(postgres.New(postgres.Config{
@@ -65,5 +63,4 @@ func init() {
 	if err != nil {
 		log.Panic(err)
 	}
-
 }

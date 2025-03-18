@@ -37,7 +37,7 @@ func baseRoute(next http.Handler) http.Handler {
 			return
 		}
 		bearerToken := strings.TrimPrefix(authorization, "Bearer ")
-		user, session, err := util.ParseUserSession(bearerToken)
+		user, session, err := util.ParseSession(bearerToken)
 		if err != nil {
 			util.JsonErrorResponse("Not Authenticated.").WithErrorCode(401).Write401(w)
 			return

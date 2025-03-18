@@ -22,7 +22,6 @@ var translations map[string]map[string]string
 var translationsMutex sync.RWMutex
 
 func main() {
-	// database connection initialize
 	err := godotenv.Load(".env")
 
 	if err != nil {
@@ -42,7 +41,7 @@ func main() {
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		ExposedHeaders:   []string{"Link"},
 		AllowCredentials: false,
-		MaxAge:           300, // Maximum value not ignored by any of major browsers
+		MaxAge:           300,
 	}))
 
 	port := os.Getenv("SERVER_PORT")

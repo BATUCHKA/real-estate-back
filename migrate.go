@@ -16,7 +16,17 @@ func main() {
 	db.GormDB.Logger = logger.Default.LogMode(logger.Info) // Enable Logging
 
 	modelsList := []interface{}{
-		&models.AdminUser,
+		&models.Users{},
+		&models.Session{},
+		&models.Roles{},
+		&models.Permission{},
+		&models.RolePermission{},
+		&models.Project{},
+		&models.Apartment{},
+		&models.Blocks{},
+		&models.Apartment{},
+		&models.Apartment{},
+		&models.Apartment{},
 	}
 
 	for _, model := range modelsList {

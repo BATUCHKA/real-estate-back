@@ -27,7 +27,7 @@ func baseRoute(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		authorization := r.Header.Get("Authorization")
 		bearerToken := strings.TrimPrefix(authorization, "Bearer ")
-		user, session, err := util.ParseUserSession(bearerToken)
+		user, session, err := util.ParseSession(bearerToken)
 		if err != nil {
 			next.ServeHTTP(w, r)
 			return
