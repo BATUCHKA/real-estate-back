@@ -20,7 +20,7 @@ const (
 	SessionUserKey = "session-user-data"
 )
 
-func CreateSession(user *models.Users, expireAt time.Time) (*models.Session, error) {
+func CreateUserSession(user *models.User, expireAt time.Time) (*models.Session, error) {
 	data, err := json.Marshal(user)
 	if err != nil {
 		return nil, err
@@ -42,7 +42,7 @@ func CreateSession(user *models.Users, expireAt time.Time) (*models.Session, err
 	return &session, nil
 }
 
-func ReleaseSession(session *models.Session) error {
+func ReleaseUserSession(session *models.Session) error {
 	db := database.Database
 	result := db.GormDB.Delete(&session)
 	if result.Error != nil {
@@ -51,37 +51,34 @@ func ReleaseSession(session *models.Session) error {
 	return nil
 }
 
-func ParseSession(key string) (*models.Users, *models.Session, error) {
+func ParseUserSession(key string) (*models.User, *models.Session, *[]models.Role, error) {
 	var session models.Session
 
 	db := database.Database
 	result := db.GormDB.First(&session, "hash = ? AND expire_at >= ?", key, time.Now())
 	if result.Error != nil {
-		return nil, nil, result.Error
+		return nil, nil, nil, result.Error
 	}
 	data, err := base64.StdEncoding.DecodeString(session.Data)
-	if err != nil {
+	if result.Error != nil {
 		log.Fatal(err)
 	}
-
-	var userData models.Users
-	err = json.Unmarshal(data, &userData)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	var user models.Users
-	result = db.GormDB.First(&user, "id = ?", userData.ID)
+	var user models.User
+	var userInfo models.User
+	json.Unmarshal(data, &user)
+	result = db.GormDB.First(&userInfo, "id = ?", user.ID)
 	if result.Error != nil {
-		return nil, nil, result.Error
+		return nil, nil, nil, result.Error
 	}
+	var roles []models.Role
+	db.GormDB.Find(&roles, "id = ?", userInfo.RoleID)
 
-	return &user, &session, nil
+	return &userInfo, &session, &roles, nil
 }
 
-func GetUserFromRequestContext(r *http.Request) *models.Users {
+func GetUserFromRequestContext(r *http.Request) *models.User {
 	if val := r.Context().Value(SessionUserKey); val != nil {
-		return r.Context().Value(SessionUserKey).(*models.Users)
+		return r.Context().Value(SessionUserKey).(*models.User)
 	}
 	return nil
 }
@@ -92,3 +89,31 @@ func GetSessionFromRequestContext(r *http.Request) *models.Session {
 	}
 	return nil
 }
+
+// func ParseSession(key string) (*models.User, *models.Session, error) {
+// 	var session models.Session
+
+// 	db := database.Database
+// 	result := db.GormDB.First(&session, "hash = ? AND expire_at >= ?", key, time.Now())
+// 	if result.Error != nil {
+// 		return nil, nil, result.Error
+// 	}
+// 	data, err := base64.StdEncoding.DecodeString(session.Data)
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+
+// 	var userData models.User
+// 	err = json.Unmarshal(data, &userData)
+// 	if err != nil {
+// 		return nil, nil, err
+// 	}
+
+// 	var user models.User
+// 	result = db.GormDB.First(&user, "id = ?", userData.ID)
+// 	if result.Error != nil {
+// 		return nil, nil, result.Error
+// 	}
+
+// 	return &user, &session, nil
+// }

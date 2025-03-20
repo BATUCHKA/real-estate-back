@@ -12,6 +12,7 @@ type ImageFile struct {
 	MimeType    string       `json:"mime_type"`
 	FileName    string       `gorm:"index" json:"file_name"`
 	FileSize    uint         `json:"file_size"`
+	ImageType   string       `json:"image_type" gorm:"default:'other'"`
 	ApartmentID *string      `gorm:"index" json:"apartment_id"`
 	Apartment   Apartment    `json:"-"`
 	ProjectID   *string      `json:"project_id" gorm:"index"`

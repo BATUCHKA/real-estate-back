@@ -9,7 +9,6 @@ import (
 	"os"
 	"sync"
 
-	"github.com/BATUCHKA/real-estate-back/services/admin"
 	"github.com/BATUCHKA/real-estate-back/services/api"
 	"github.com/BATUCHKA/real-estate-back/services/public"
 	"github.com/go-chi/chi/v5"
@@ -62,7 +61,6 @@ func router() http.Handler {
 	r := chi.NewRouter()
 	r.Use(baseRoute)
 	r.Route("/api", api.Route)
-	r.Route("/admin/api", admin.Route)
 	r.Route("/p/api", public.Route)
 	return r
 }

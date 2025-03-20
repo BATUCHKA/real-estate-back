@@ -32,7 +32,7 @@ func main() {
 				if err != nil {
 					panic(err)
 				}
-				superuser := &models.Users{
+				superuser := &models.User{
 					Email:    SuperUserEmail,
 					Password: string(hashedPassword),
 				}
@@ -65,6 +65,7 @@ func main() {
 		Args:  cobra.MinimumNArgs(0),
 		Run: func(cmd *cobra.Command, args []string) {
 			models.RoleFlush()
+			models.ApartmentStatusFlush()
 		},
 	}
 

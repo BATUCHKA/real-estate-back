@@ -141,9 +141,9 @@ func (k *PermissionKeys) FlushPreRoles() {
 		},
 	}
 	for _, v := range roles {
-		var role models.Roles
+		var role models.Role
 		if result := db.GormDB.First(&role, "key = ?", v["Key"].(string)); result.RowsAffected == 0 {
-			role = models.Roles{
+			role = models.Role{
 				Key: models.RoleKeyType(v["Key"].(string)),
 			}
 			db.GormDB.Create(&role)
@@ -210,7 +210,7 @@ func PermissionMiddleware(permission_keys ...string) func(next http.Handler) htt
 			db := database.Database
 
 			// Check if user has admin role (directly via RoleID)
-			var role models.Roles
+			var role models.Role
 			if err := db.GormDB.First(&role, "id = ?", user.RoleID).Error; err == nil {
 				// If user has admin role, allow all actions
 				if role.Key == "admin" {

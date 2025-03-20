@@ -9,9 +9,9 @@ import (
 
 type RolePermission struct {
 	ID           uuid.UUID    `gorm:"type:uuid;default:uuid_generate_v4();primaryKey" json:"id"`
-	RoleID       string       `json:"role_id"`
-	Role         Roles        `json:"-"`
-	PermissionID string       `json:"permission_id"`
+	RoleID       string       `json:"role_id" gorm:"index"`
+	Role         Role        `json:"-"`
+	PermissionID string       `json:"permission_id" gorm:"index"`
 	Permission   Permission   `json:"-"`
 	CreatedAt    time.Time    `gorm:"autoCreateTime" json:"created_at"`
 	UpdatedAt    time.Time    `gorm:"autoUpdateTime" json:"updated_at"`

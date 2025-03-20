@@ -18,7 +18,7 @@ const (
 	RoleAdmin      RoleKeyType = "admin"
 )
 
-type Roles struct {
+type Role struct {
 	ID        uuid.UUID    `gorm:"type:uuid;default:uuid_generate_v4();primaryKey" json:"id"`
 	Key       RoleKeyType  `gorm:"unique;not null" json:"key"`
 	CreatedAt time.Time    `gorm:"autoCreateTime" json:"created_at"`
@@ -30,7 +30,7 @@ func RoleFlush() {
 	db := database.Database
 	types := []RoleKeyType{RoleAdmin, RoleAgent, RoleAccountant, RoleClient}
 	for _, v := range types {
-		staticTable := &Roles{
+		staticTable := &Role{
 			Key: v,
 		}
 		db.GormDB.Clauses(clause.OnConflict{

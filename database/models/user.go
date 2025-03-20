@@ -7,7 +7,7 @@ import (
 	"github.com/google/uuid"
 )
 
-type Users struct {
+type User struct {
 	ID          uuid.UUID    `gorm:"type:uuid;default:uuid_generate_v4();primaryKey" json:"id"`
 	FirstName   string       `json:"first_name"`
 	LastName    string       `json:"last_name"`
@@ -15,7 +15,7 @@ type Users struct {
 	Password    string       `json:"password,omitempty"`
 	PhoneNumber string       `json:"phone_number"`
 	RoleID      string       `json:"role_id"`
-	Role        Roles        `json:"-"`
+	Role        Role         `json:"-"`
 	CreatedAt   time.Time    `gorm:"autoCreateTime" json:"created_at"`
 	UpdatedAt   time.Time    `gorm:"autoUpdateTime" json:"updated_at"`
 	DeletedAt   sql.NullTime `gorm:"index" json:"-"`
